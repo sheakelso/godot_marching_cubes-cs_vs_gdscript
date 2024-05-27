@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://3r5fqx0n731t"]
+
+[ext_resource type="Script" path="res://scripts/MeshGenerator.gd" id="1_qyceb"]
+[ext_resource type="Script" path="res://scripts/FreeCamera.gd" id="2_t1ikc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_p81o8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jksqw"]
+cull_mode = 1
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Menu" type="Panel" parent="."]
+offset_right = 293.0
+offset_bottom = 141.0
+
+[node name="TitleBox" type="Panel" parent="Menu"]
+layout_mode = 0
+offset_right = 293.0
+offset_bottom = 51.0
+
+[node name="Title" type="Label" parent="Menu/TitleBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Marching Cubes Generator"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Menu"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 93.0
+offset_right = 289.0
+offset_bottom = 137.0
+text = "Generate"
+
+[node name="SpinBox" type="SpinBox" parent="Menu"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 54.0
+offset_right = 290.0
+offset_bottom = 90.0
+update_on_text_changed = true
+
+[node name="MarchingMesh" type="MeshInstance3D" parent="."]
+script = ExtResource("1_qyceb")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.350207, 0, -0.936672, 0, 1, 0, 0.936672, 0, -0.350207, 0, 0, 1.915)
+script = ExtResource("2_t1ikc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.118184, 0.873621, 0.472037, -0.472037, 0.368796, -0.800731, -0.873621, -0.317452, 0.368796, -2.58265, 5.1684, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_p81o8")
+surface_material_override/0 = SubResource("StandardMaterial3D_jksqw")
+
+[connection signal="button_down" from="Menu/Button" to="MarchingMesh" method="_on_button_button_down"]
+[connection signal="value_changed" from="Menu/SpinBox" to="MarchingMesh" method="_on_spin_box_value_changed"]

@@ -1,0 +1,191 @@
+[gd_scene load_steps=7 format=3 uid="uid://bib1xf0ftbb5o"]
+
+[ext_resource type="Script" path="res://scripts/FreeCamera.gd" id="1_2wx6e"]
+[ext_resource type="Script" path="res://scripts/ScriptSwap.gd" id="1_8ae1y"]
+[ext_resource type="Script" path="res://scripts/MarchingMesh.cs" id="2_5q8eo"]
+[ext_resource type="Script" path="res://scripts/MeshGenerator.gd" id="3_pbx6v"]
+[ext_resource type="Material" uid="uid://dxvi8uaec3o6i" path="res://marchingmat.tres" id="5_g62ts"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_5r707"]
+
+[node name="Csharp" type="Node3D"]
+
+[node name="Menu" type="Panel" parent="."]
+offset_right = 293.0
+offset_bottom = 370.0
+
+[node name="TitleBox" type="Panel" parent="Menu"]
+layout_mode = 0
+offset_right = 293.0
+offset_bottom = 51.0
+
+[node name="Title" type="Label" parent="Menu/TitleBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Marching Cubes Generator (C#)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Menu"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 297.0
+offset_right = 289.0
+offset_bottom = 338.0
+text = "Generate"
+
+[node name="SpinBox" type="SpinBox" parent="Menu"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 78.0
+offset_right = 290.0
+offset_bottom = 114.0
+max_value = 9.22337e+18
+update_on_text_changed = true
+
+[node name="Title" type="RichTextLabel" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 52.0
+offset_right = -5.0
+offset_bottom = -277.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[u]Seed[/u]"
+
+[node name="Title2" type="RichTextLabel" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 118.0
+offset_right = -5.0
+offset_bottom = -209.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[u]Size[/u]"
+
+[node name="SpinBox2" type="SpinBox" parent="Menu"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 144.0
+offset_right = 96.0
+offset_bottom = 180.0
+max_value = 300.0
+value = 100.0
+update_on_text_changed = true
+
+[node name="SpinBox3" type="SpinBox" parent="Menu"]
+layout_mode = 0
+offset_left = 197.0
+offset_top = 144.0
+offset_right = 289.0
+offset_bottom = 180.0
+max_value = 300.0
+value = 100.0
+update_on_text_changed = true
+
+[node name="SpinBox4" type="SpinBox" parent="Menu"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 144.0
+offset_right = 194.0
+offset_bottom = 180.0
+max_value = 300.0
+value = 50.0
+update_on_text_changed = true
+
+[node name="Title3" type="RichTextLabel" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 185.0
+offset_right = -5.0
+offset_bottom = -142.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[u]Surface Level[/u]"
+
+[node name="SpinBox5" type="SpinBox" parent="Menu"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 212.0
+offset_right = 290.0
+offset_bottom = 248.0
+max_value = 1.0
+step = 0.01
+value = 0.5
+update_on_text_changed = true
+
+[node name="Title4" type="Label" parent="Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 331.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Time: N/A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="Menu" node_paths=PackedStringArray("gd_mesh", "cs_mesh", "title")]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 254.0
+offset_right = 289.0
+offset_bottom = 294.0
+text = "Switch to GDScript"
+script = ExtResource("1_8ae1y")
+gd_mesh = NodePath("../../GDSCRIPT")
+cs_mesh = NodePath("../../CSHARP")
+title = NodePath("../TitleBox/Title")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.350207, 0, -0.936672, 0, 1, 0, 0.936672, 0, -0.350207, 0, 0, 1.915)
+script = ExtResource("1_2wx6e")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.118184, 0.873621, 0.472037, -0.472037, 0.368796, -0.800731, -0.873621, -0.317452, 0.368796, -2.58265, 5.1684, 0)
+
+[node name="CSHARP" type="MeshInstance3D" parent="." node_paths=PackedStringArray("timeText")]
+script = ExtResource("2_5q8eo")
+mat = ExtResource("5_g62ts")
+timeText = NodePath("../Menu/Title4")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_5r707")
+
+[node name="GDSCRIPT" type="MeshInstance3D" parent="." node_paths=PackedStringArray("time_text")]
+process_mode = 3
+script = ExtResource("3_pbx6v")
+time_text = NodePath("../Menu/Title4")
+mat = ExtResource("5_g62ts")
+
+[connection signal="button_down" from="Menu/Button" to="CSHARP" method="_OnButtonDown"]
+[connection signal="button_down" from="Menu/Button" to="GDSCRIPT" method="_on_button_button_down"]
+[connection signal="value_changed" from="Menu/SpinBox" to="CSHARP" method="_OnSeedChanged"]
+[connection signal="value_changed" from="Menu/SpinBox" to="GDSCRIPT" method="_on_seed_changed"]
+[connection signal="value_changed" from="Menu/SpinBox2" to="CSHARP" method="_OnSizeXChanged"]
+[connection signal="value_changed" from="Menu/SpinBox2" to="GDSCRIPT" method="_on_size_x_changed"]
+[connection signal="value_changed" from="Menu/SpinBox3" to="CSHARP" method="_OnSizeZChanged"]
+[connection signal="value_changed" from="Menu/SpinBox3" to="GDSCRIPT" method="_on_size_z_changed"]
+[connection signal="value_changed" from="Menu/SpinBox4" to="CSHARP" method="_OnSizeYChanged"]
+[connection signal="value_changed" from="Menu/SpinBox4" to="GDSCRIPT" method="_on_size_y_changed"]
+[connection signal="value_changed" from="Menu/SpinBox5" to="CSHARP" method="_OnSurfaceChanged"]
+[connection signal="value_changed" from="Menu/SpinBox5" to="GDSCRIPT" method="_on_surface_changed"]
+[connection signal="button_down" from="Menu/Button2" to="Menu/Button2" method="_on_button_down"]
